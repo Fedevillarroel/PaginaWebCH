@@ -1,7 +1,8 @@
 import { useState, useRef, useCallback } from 'react';
 import {
   Plus, Pencil, Trash2, X, Upload, CheckCircle,
-  AlertCircle, Loader2, ArrowLeft, FolderOpen, LogOut, Package
+  AlertCircle, Loader2, ArrowLeft, ShieldCheck, LogOut, Package,
+  User, Lock, Eye, EyeOff
 } from 'lucide-react';
 import './AdminPanel.css';
 
@@ -228,45 +229,113 @@ const ProductModal = ({ product, categories, onSave, onClose, isSaving }) => {
 
 // ── Login Screen ──────────────────────────────────────────────
 const LoginScreen = ({ onLogin, onBack }) => {
-  const [user, setUser] = useState('');
-  const [pass, setPass] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [user, setUser]         = useState('');
+  const [pass, setPass]         = useState('');
+  const [showPass, setShowPass] = useState(false);
+  const [error, setError]       = useState('');
+  const [loading, setLoading]   = useState(false);
+  const [shake, setShake]       = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
     setTimeout(() => {
       if (user === ADMIN_USER && pass === ADMIN_PASS) {
         onLogin();
       } else {
         setError('Usuario o contraseña incorrectos.');
+        setPass('');
         setLoading(false);
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
       }
     }, 800);
   };
 
   return (
     <div className="login-screen">
-      <div className="login-card">
-        <button className="login-back" onClick={onBack}><ArrowLeft size={18} /> Volver al sitio</button>
-        <div className="login-icon-wrap"><FolderOpen size={36} /></div>
+      <div className={`login-card ${shake ? 'login-card--shake' : ''}`}>
+
+        {/* Back button */}
+        <button className="login-back" onClick={onBack}>
+          <ArrowLeft size={16} /> Volver al sitio
+        </button>
+
+        {/* Icon + titles */}
+        <div className="login-icon-wrap">
+          <ShieldCheck size={32} />
+        </div>
         <h2 className="login-title">Panel de Administración</h2>
-        <p className="login-subtitle">Cristian Heintz — Acceso privado</p>
-        <form className="login-form" onSubmit={handleSubmit} noValidate>
+        <p className="login-subtitle">Cristian Heintz &mdash; Acceso restringido</p>
+
+        {/* Form */}
+        <form className="login-form" onSubmit={handleSubmit} noValidate autoComplete="off">
+
+          {/* Usuario */}
           <div className="form-group">
             <label className="form-label" htmlFor="login-user">Usuario</label>
-            <input id="login-user" type="text" className="form-input" placeholder="admin" value={user} onChange={(e) => { setUser(e.target.value); setError(''); }} />
+            <div className="login-input-wrap">
+              <User size={15} className="login-input-icon" />
+              <input
+                id="login-user"
+                type="text"
+                className="form-input login-input-padded"
+                placeholder="Ingresá tu usuario"
+                value={user}
+                autoFocus
+                onChange={(e) => { setUser(e.target.value); setError(''); }}
+              />
+            </div>
           </div>
+
+          {/* Contraseña */}
           <div className="form-group">
             <label className="form-label" htmlFor="login-pass">Contraseña</label>
-            <input id="login-pass" type="password" className="form-input" placeholder="••••••••" value={pass} onChange={(e) => { setPass(e.target.value); setError(''); }} />
+            <div className="login-input-wrap">
+              <Lock size={15} className="login-input-icon" />
+              <input
+                id="login-pass"
+                type={showPass ? 'text' : 'password'}
+                className="form-input login-input-padded login-input-padded--right"
+                placeholder="Ingresá tu contraseña"
+                value={pass}
+                onChange={(e) => { setPass(e.target.value); setError(''); }}
+              />
+              <button
+                type="button"
+                className="login-toggle-pass"
+                onClick={() => setShowPass((v) => !v)}
+                tabIndex={-1}
+                aria-label={showPass ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              >
+                {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
           </div>
-          {error && <p className="login-error"><AlertCircle size={15} /> {error}</p>}
-          <button type="submit" className="btn-modal-save w-full" disabled={loading} id="login-submit-btn">
-            {loading ? <><Loader2 size={17} className="spin" /> Verificando...</> : 'Ingresar'}
+
+          {/* Error */}
+          {error && (
+            <div className="login-error">
+              <AlertCircle size={15} />
+              {error}
+            </div>
+          )}
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="btn-modal-save w-full"
+            disabled={loading || !user || !pass}
+            id="login-submit-btn"
+          >
+            {loading
+              ? <><Loader2 size={17} className="spin" /> Verificando...</>
+              : <><ShieldCheck size={17} /> Ingresar al panel</>
+            }
           </button>
         </form>
+
         <p className="login-hint">Acceso solo para administradores autorizados</p>
       </div>
     </div>
