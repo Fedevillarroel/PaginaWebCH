@@ -80,9 +80,12 @@ const Catalog = ({ products }) => {
   }, [products]);
 
   const filtered = useMemo(() => {
-    if (activeCategory === 'Todos') return products;
+    if (activeCategory === 'Todos') return products.slice(0, 3);
     return products.filter((p) => p.category === activeCategory);
   }, [products, activeCategory]);
+
+  const totalProducts = products.length;
+  const showingAll   = activeCategory !== 'Todos';
 
   return (
     <section className="catalog-section section" id="catalogo">
@@ -114,11 +117,19 @@ const Catalog = ({ products }) => {
 
         {/* Products Grid */}
         {filtered.length > 0 ? (
-          <div className="catalog-grid">
-            {filtered.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          <>
+            <div className="catalog-grid">
+              {filtered.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+            {/* Hint: hay más productos en otras categorías */}
+            {!showingAll && totalProducts > 3 && (
+              <p className="catalog-more-hint">
+                Mostrando 3 de {totalProducts} productos — seleccioná una categoría para ver más
+              </p>
+            )}
+          </>
         ) : (
           <div className="catalog-empty">
             <Package size={56} />
