@@ -24,7 +24,7 @@ const Hero = () => {
             <a href="#contacto" className="btn btn-primary">
               Solicitar Asesoramiento <ChevronRight size={18} className="btn-icon" />
             </a>
-            <a href="https://wa.me/5493434059997" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+            <a href="https://wa.me/5493435348834" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
               <Phone size={18} className="btn-icon" /> Contactar por WhatsApp
             </a>
           </div>

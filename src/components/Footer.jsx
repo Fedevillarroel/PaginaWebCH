@@ -43,8 +43,8 @@ const Footer = () => {
               </li>
               <li>
                 <Phone size={18} className="contact-icon" />
-                <a href="https://wa.me/5493434059997" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>
-                  +54 9 3434 059997
+                <a href="https://wa.me/5493435348834" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>
+                  +54 9 3435 34-8834
                 </a>
               </li>
               <li>

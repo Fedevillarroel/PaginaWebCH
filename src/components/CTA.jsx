@@ -11,10 +11,10 @@ const CTA = () => {
             Contactanos hoy mismo y obtené una solución rápida y profesional.
           </p>
           <div className="cta-buttons">
-            <a href="tel:+5493434059997" className="btn btn-primary btn-large">
+            <a href="tel:+5493435348834" className="btn btn-primary btn-large">
               <Phone size={20} className="btn-icon" /> Llamar ahora
             </a>
-            <a href="https://wa.me/5493434059997" target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp btn-large">
+            <a href="https://wa.me/5493435348834" target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp btn-large">
               <MessageCircle size={20} className="btn-icon" /> WhatsApp
             </a>
           </div>

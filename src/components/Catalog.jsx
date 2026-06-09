@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { MessageCircle, Tag, Package } from 'lucide-react';
 import './Catalog.css';
 
-const WHATSAPP_NUMBER = '5493434059997'; // Cristian Heintz
+const WHATSAPP_NUMBER = '5493435348834'; // Cristian Heintz
 
 const ProductCard = ({ product }) => {
   const message = encodeURIComponent(
