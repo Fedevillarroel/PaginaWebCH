@@ -264,18 +264,14 @@ const AdminPanel = ({ onExit, onRefresh }) => {
     try {
       let imageUrl = formData.imageUrl || '';
 
-      // Subir imagen nueva al Storage si hay archivo
+      // Convertir imagen a base64 y guardar en DB (sin depender de Storage)
       if (formData.imageFile) {
-        const ext      = formData.imageFile.name.split('.').pop();
-        const fileName = `${Date.now()}.${ext}`;
-        const { error: upErr } = await supabase.storage
-          .from(BUCKET).upload(fileName, formData.imageFile, { upsert: true });
-        if (!upErr) {
-          const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(fileName);
-          imageUrl = urlData.publicUrl;
-        } else {
-          console.warn('Error subiendo imagen:', upErr.message);
-        }
+        imageUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload  = (e) => resolve(e.target.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(formData.imageFile);
+        });
       }
 
       const payload = {
@@ -306,6 +302,7 @@ const AdminPanel = ({ onExit, onRefresh }) => {
       setIsSaving(false);
     }
   }, [fetchProducts]);
+
 
   const confirmDeleteAction = async () => {
     try {
