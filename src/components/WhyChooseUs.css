@@ -1,0 +1,81 @@
+.wcu-section {
+  background-color: var(--primary-blue);
+  color: var(--text-light);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.wcu-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(46, 125, 50, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.wcu-section .section-title {
+  color: var(--text-light);
+}
+
+.wcu-section .section-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.wcu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.wcu-card {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  transition: transform var(--transition-normal), background var(--transition-normal);
+}
+
+.wcu-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.wcu-icon-wrapper {
+  color: var(--agro-green-light);
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.wcu-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--text-light);
+}
+
+.wcu-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .wcu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .wcu-grid {
+    grid-template-columns: 1fr;
+  }
+}

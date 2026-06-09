@@ -1,0 +1,112 @@
+/* ── Navbar ───────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 18px 0;
+  transition: background 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease;
+  background: transparent;
+}
+
+.navbar--scrolled {
+  background: rgba(10, 25, 47, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 24px rgba(0, 0, 0, 0.4);
+  padding: 12px 0;
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Logo */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 1.05rem;
+  color: #f8f9fa;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.navbar__logo strong { color: #4CAF50; font-weight: 700; }
+.navbar__logo-icon { color: #4CAF50; }
+
+/* Desktop links */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.navbar__link {
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(248, 249, 250, 0.8);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+.navbar__link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* Actions group */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Hamburger */
+.navbar__hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: #f8f9fa;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Mobile Menu */
+.navbar__mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 20px 16px;
+  background: rgba(10, 25, 47, 0.98);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+.navbar__mobile-menu--open {
+  max-height: 400px;
+  opacity: 1;
+}
+.navbar__mobile-link {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  color: rgba(248, 249, 250, 0.85);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.navbar__mobile-link:hover { background: rgba(255,255,255,0.07); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar__links { display: none; }
+  .navbar__hamburger { display: block; }
+  .navbar__mobile-menu { display: flex; }
+}
