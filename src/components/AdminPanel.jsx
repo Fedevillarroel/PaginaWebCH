@@ -7,7 +7,7 @@ import './AdminPanel.css';
 
 // ── Credenciales de demo ──────────────────────────────────────
 const ADMIN_USER = 'admin';
-const ADMIN_PASS = '1234';
+const ADMIN_PASS = 'Administrador_2026';
 
 // ── Toast Component ──────────────────────────────────────────
 const Toast = ({ toast }) => {
@@ -267,7 +267,7 @@ const LoginScreen = ({ onLogin, onBack }) => {
             {loading ? <><Loader2 size={17} className="spin" /> Verificando...</> : 'Ingresar'}
           </button>
         </form>
-        <p className="login-hint">Demo: usuario <strong>admin</strong> / contraseña <strong>1234</strong></p>
+        <p className="login-hint">Acceso solo para administradores autorizados</p>
       </div>
     </div>
   );
