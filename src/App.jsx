@@ -10,6 +10,7 @@ import CTA from './components/CTA';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import AdminPanel from './components/AdminPanel';
+import AdminLogin from './components/AdminLogin';
 
 import balanzasImg from './assets/images/balanzas_agricolas.png';
 import vhfImg from './assets/images/equipos_vhf.png';
@@ -68,9 +69,15 @@ const ADMIN_PATHS = ['/admin', '/dashboard-manager'];
 const ADMIN_HASH  = '#/admin';
 
 // ── App ───────────────────────────────────────────────────
+// ── Verificar sesión guardada ────────────────────────────
+function isAuthenticated() {
+  return sessionStorage.getItem('ch_admin_auth') === 'true';
+}
+
 function App() {
-  const [products, setProducts] = useState(loadProducts);
-  const [showAdmin, setShowAdmin] = useState(false);
+  const [products, setProducts]     = useState(loadProducts);
+  const [showAdmin, setShowAdmin]   = useState(false);
+  const [isAuthed,  setIsAuthed]    = useState(isAuthenticated);
 
   // ── 1. URL path (/admin) y hash (#/admin) ───────────────
   useEffect(() => {
@@ -94,6 +101,8 @@ function App() {
   // Limpiar la URL al salir del admin
   const handleAdminExit = useCallback(() => {
     setShowAdmin(false);
+    setIsAuthed(false);
+    sessionStorage.removeItem('ch_admin_auth');
     // Si estamos en /admin, volvemos a /
     if (ADMIN_PATHS.includes(window.location.pathname) || window.location.hash === ADMIN_HASH) {
       window.history.replaceState(null, '', '/');
@@ -155,8 +164,11 @@ function App() {
     setProducts(prev => prev.filter(p => p.id !== id));
   }, []);
 
-  // ── Admin View ──────────────────────────────────────────
+  // ── Admin View (con login guard) ────────────────────────
   if (showAdmin) {
+    if (!isAuthed) {
+      return <AdminLogin onSuccess={() => setIsAuthed(true)} />;
+    }
     return (
       <AdminPanel
         products={products}
