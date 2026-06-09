@@ -8,14 +8,14 @@ const ProductCard = ({ product }) => {
   const message = encodeURIComponent(
     `Hola Cristian! Me interesa consultar sobre: *${product.name}*. ¿Podrías darme más información?`
   );
-  const whatsappUrl = product.contactLink || `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+  const whatsappUrl = product.contact_link || `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
 
   return (
     <article className="product-card product-card--animate">
       <div className="product-card__image-wrapper">
-        {product.image ? (
+        {product.image_url ? (
           <img
-            src={product.image}
+            src={product.image_url}
             alt={product.name}
             className="product-card__image"
             loading="lazy"
